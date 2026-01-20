@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <title>Блин Блинский!</title>
-
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Commissioner&display=swap" rel="stylesheet">
@@ -19,31 +18,47 @@
 
 function daysLeftNewYear()
 {
- today = new Date()
- //Можно установить любую дату
- nextDate = new Date("January 1, 2027")
- //Количество миллисекунд в одном дне
- msPerDay = 24*60*60*1000;
- //Высчитываем количество дней
- daysLeft = Math.round((nextDate.getTime()
-  - today.getTime())/msPerDay);
- dayname=""
- ds=""+daysLeft
-  //Вырезаем последнюю цифру
- dd=parseInt(ds.substr(ds.length-1))
- //Определяем правильность написания
- if(daysLeft>4&&daysLeft<21)dayname=" дней"
- else
-  if(dd==1)dayname=" день"
-  else
-   if(dd==2||dd==3||dd==4)dayname=" дня"
-   else dayname=" дней"
- //Выводим надпись в документ
- document.write("<br>"
- +daysLeft+dayname);
+ var today = new Date();
+ // Устанавливаем время на полночь для точного расчета дней
+ today.setHours(0,0,0,0);
+ 
+ // Определяем следующий Новый год (1 января следующего года)
+ var currentYear = today.getFullYear();
+ var nextDate = new Date(currentYear + 1, 0, 1); // Месяцы начинаются с 0 (0=январь)
+ nextDate.setHours(0,0,0,0);
+
+ // Количество миллисекунд в одном дне
+ var msPerDay = 24*60*60*1000;
+ 
+ // Высчитываем количество дней
+ var daysLeft = Math.round((nextDate.getTime() - today.getTime())/msPerDay);
+ 
+ // Определяем правильное окончание
+ var dayname = "";
+ if (daysLeft === 0) {
+    dayname = " дней"; // Особый случай: сегодня уже Новый год
+ } else {
+    var ds = "" + daysLeft;
+    var dd = parseInt(ds.substr(ds.length - 1));
+    
+    if (daysLeft > 4 && daysLeft < 21) {
+        dayname = " дней";
+    } else {
+        if (dd == 1) {
+            dayname = " день";
+        } else if (dd == 2 || dd == 3 || dd == 4) {
+            dayname = " дня";
+        } else {
+            dayname = " дней";
+        }
+    }
+ }
+ 
+ // Выводим надпись в документ
+ document.write("<br>" + daysLeft + dayname);
 }
     </script>
-
+   
     <script language="JavaScript">
 <!--
 //Вызываем функцию
